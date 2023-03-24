@@ -26,9 +26,6 @@
 	"dependencies": {
 		"phaser": "^3.55.2"
 	},
-	"parcelCleanPaths": [
-		"dist"
-	],
 	"staticFiles": {
 		"staticPath": "public",
 		"watcherGlob": "**"
