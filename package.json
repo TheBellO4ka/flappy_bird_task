@@ -17,6 +17,7 @@
 	"devDependencies": {
 		"@babel/core": "^7.10.5",
 		"@babel/plugin-proposal-class-properties": "^7.10.4",
+		"@types/node": "^18.15.11",
 		"babel-eslint": "^10.1.0",
 		"eslint": "^6.8.0",
 		"minimist": ">=1.2.2",
@@ -24,7 +25,8 @@
 		"parcel-plugin-static-files-copy": "^2.4.3"
 	},
 	"dependencies": {
-		"phaser": "^3.55.2"
+		"phaser": "^3.55.2",
+		"typescript": "^5.0.2"
 	},
 	"staticFiles": {
 		"staticPath": "public",

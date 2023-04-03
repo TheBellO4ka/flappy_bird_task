@@ -2,6 +2,8 @@ import Phaser from 'phaser';
 import createPipe from '../model/pipes.model';
 import birdConfig from '../model/bird.model';
 import positions from './PositionOptions';
+import assetsPath from './assetsPath';
+import Texts from '../ts_config/textConfig';
 
 export default class FlappyBirdScene extends Phaser.Scene {
   private bird!: Phaser.Physics.Arcade.Sprite;
@@ -12,19 +14,21 @@ export default class FlappyBirdScene extends Phaser.Scene {
   private pipesArrey!: any [];
   private isGameOver = false;
 
+  
 
   constructor() {
     super('flappy-bird');
   }
-  preload(){    
-    this.load.image('background', 'https://i.imgur.com/QV1CgiL.png');
-    this.load.image('pipe', 'https://i.imgur.com/oT6ZkeP.png');
-    this.load.image('bird', 'https://i.imgur.com/D2eJ1v5.png');
-    this.load.image('startButton', 'https://i.imgur.com/pfTvRZ4.png');
+
+  public preload():void {    
+    this.load.image('background', assetsPath.backgroundPng);
+    this.load.image('pipe', assetsPath.pipePng);
+    this.load.image('bird', assetsPath.birdPng);
+    this.load.image('startButton', assetsPath.startButtonPng);
   }
 
-  create() {   
-    this.physics.world.setBounds(positions.zeroX, positions.zeroY, window.screen.width, window.screen.height);
+  public create():void {   
+    this.physics.world.setBounds(positions.zeroX, positions.zeroY, window.innerWidth, window.innerHeight);
 
     const background = this.add.image(positions.zeroX, positions.zeroY, 'background');
     background.setOrigin(positions.zeroX, positions.zeroY);
@@ -36,7 +40,12 @@ export default class FlappyBirdScene extends Phaser.Scene {
 
     this.scoreCounter = 0;
     this.pipesArrey = [];
-    this.scoreCounterText = this.add.text( window.screen.width / 2, positions.zeroY, this.scoreCounter.toString(), { color: '#000', fontSize: '36px'}).setDepth(1);
+    this.scoreCounterText = this.add.text(
+        window.innerWidth / 2, 
+        positions.zeroY, 
+        this.scoreCounter.toString(), 
+        { color: Texts.color, fontSize: Texts.fontSize})
+      .setDepth(1);
 
     this.jumpKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
     this.jumpKey.on('down', this.jump, this);
@@ -56,9 +65,6 @@ export default class FlappyBirdScene extends Phaser.Scene {
     if (this.bird.y <= this.bird.height / 2 || this.bird.y >= window.screen.height - this.bird.height * 2) {
       this.gameOver();
     }
-    // for(let i = 0; i < this.pipes.length; i++) {
-    // if (this.bird.x > this.pipes)
-    // }
       if (this.pipesArrey.length && this.bird.x > this.pipesArrey[this.pipesArrey.length - 1].x) {
         this.pipesArrey.pop();
         
